@@ -1,12 +1,12 @@
-# Báo Cáo Nhóm: Lab 3 - Hệ Thống Agentic Cấp Sản Xuất
+# Group Report: Lab 3 - Production-Grade Agentic System
 
-- **Tên Nhóm**: Lab Chatbot vs ReAct Agent
-- **Thành Viên Nhóm**: Elly (Git user)
+- **Tên Nhóm**: C401-F3
+- **Thành Viên Nhóm**: Khương Hải Lâm, Lưu Lê Gia Bảo, Đặng Tuấn Anh, Lương Trung Kiên, Thái Doãn Minh Hải, Hoàng Quốc Hùng
 - **Ngày Triển Khai**: 2026-04-06
 
 ---
 
-## 1. Tóm Tắt Điều Hành (Executive Summary)
+## 1. Executive Summary
 
 Hệ thống này được phát triển để so sánh hiệu suất của một chatbot tiêu chuẩn với một ReAct Agent tiên tiến trong lĩnh vực lữ hành và đặt phòng khách sạn.
 
@@ -24,9 +24,9 @@ Hệ thống này được phát triển để so sánh hiệu suất của mộ
 
 ---
 
-## 2. Kiến Trúc Hệ Thống & Công Cụ
+## 2. System Architecture & Tooling
 
-### 2.1 Triển Khai Vòng Lặp ReAct
+### 2.1 ReAct Loop Implementation
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -57,7 +57,7 @@ Hệ thống này được phát triển để so sánh hiệu suất của mộ
 
 ---
 
-### 2.2 Danh Mục Công Cụ (Inventory)
+### 2.2 Tool Definitions (Inventory)
 
 | Tên Công Cụ | Định Dạng Input | Trường Hợp Sử Dụng | Trạng Thái |
 | :--- | :--- | :--- | :--- |
@@ -71,13 +71,13 @@ Hệ thống này được phát triển để so sánh hiệu suất của mộ
 
 ---
 
-### 2.3 Nhà Cung Cấp LLM Sử Dụng
+### 2.3  LLM Providers Used
 - **Chính**: OpenAI GPT-4o
 - **Hỗ trợ (Tương lai)**: Gemini 1.5 Flash, Phi-3 (mô hình địa phương)
 
 ---
 
-## 3. Telemetry & Bảng Điều Khiển Hiệu Suất
+## 3. Telemetry & Performance Dashboard
 
 ### Dữ Liệu Thu Thập
 
@@ -98,7 +98,7 @@ Hệ thống này được phát triển để so sánh hiệu suất của mộ
 
 ---
 
-## 4. Phân Tích Nguyên Nhân Gốc (RCA) - Các Trường Hợp Thất Bại
+## 4. Root Cause Analysis (RCA) - Failure Traces
 
 ### Trường Hợp Nghiên Cứu 1: Agent Gọi Sai Công Cụ
 - **Input**: "Tôi muốn khách sạn 5 sao ở Hà Nội"
@@ -125,7 +125,7 @@ Hệ thống này được phát triển để so sánh hiệu suất của mộ
 
 ---
 
-## 5. Các Nghiên Cứu So Sánh (Ablation Studies)
+## 5. Ablation Studies & Experiments
 
 ### Thí Nghiệm 1: Chatbot Tiêu Chuẩn vs ReAct Agent
 
@@ -156,8 +156,7 @@ Hệ thống này được phát triển để so sánh hiệu suất của mộ
 
 ---
 
-## 6. Đánh Giá Sẵn Sàng Sản Xuất (Production Readiness Review)
-
+## 6. Production Readiness Review
 ### 6.1 Bảo Mật
 
 **Hiện Tại:**
@@ -217,49 +216,3 @@ Hệ thống này được phát triển để so sánh hiệu suất của mộ
 - [ ] Fallback LLM (nếu GPT-4o lỗi, thử Gemini)
 - [ ] Health checks định kỳ cho các công cụ
 
----
-
-## 7. Tổng Kết & Đề Xuất
-
-### 7.1 Thành Tựu
-
-✓ **Hoàn thành 100% các mục tiêu:**
-1. ✓ Xây dựng ReAct Agent hoàn chỉnh
-2. ✓ Tích hợp 7 công cụ lữ hành/khách sạn
-3. ✓ Cài đặt hệ thống ghi nhớ người dùng
-4. ✓ Tập trung dữ liệu vào cơ sở dữ liệu thống nhất
-5. ✓ Xử lý lỗi và giới hạn số bước
-
-### 7.2 Các Đề Xuất Tiếp Theo
-
-**Ngắn hạn (1-2 tuần):**
-- Viết unit tests cho từng công cụ
-- Thêm xác thực input
-- Cải thiện prompt hệ thống với ví dụ (few-shot)
-
-**Trung hạn (1-2 tháng):**
-- Chuyển database.md sang PostgreSQL
-- Thêm authentication người dùng
-- Tích hợp thanh toán thực tế (Stripe)
-
-**Dài hạn (3-6 tháng):**
-- Chuyển sang LangGraph cho workflow phức tạp
-- Thêm hỗ trợ đa ngôn ngữ
-- Triển khai trên Kubernetes
-
----
-
-## 8. Lịch Sử Thay Đổi
-
-| Ngày | Thay Đổi | Chi Tiết |
-| :--- | :--- | :--- |
-| 2026-04-06 | Tập trung dữ liệu | Tất cả dữ liệu → `database.md` |
-| 2026-04-06 | Hệ thống ghi nhớ | Thêm `UserProfile`, giữ history |
-| 2026-04-06 | Cải tiến agent | Hỗ trợ `user_context` trong prompt |
-| 2026-04-06 | Phạm vi khách sạn | Thêm ngày bắt đầu/kết thúc |
-
----
-
-> [!NOTE]
-> Báo cáo này được tạo vào ngày 2026-04-06 và phản ánh trạng thái của hệ thống tại thời điểm đó.
-> Để cập nhật, vui lòng chạy lại các truy vấn kiểm tra và xác nhận kết quả thực tế.
