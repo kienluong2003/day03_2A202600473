@@ -1,7 +1,19 @@
 import re
 from typing import List, Dict, Any
+import json
+import logging
+from typing import List, Dict, Any, Optional
 from src.core.llm_provider import LLMProvider
-from src.telemetry.logger import logger
+
+# Simple logger fallback nếu chưa có telemetry module
+try:
+    from src.telemetry.logger import logger
+except ImportError:
+    class _SimpleLogger:
+        def log_event(self, event, data=None):
+            logging.info(f"[{event}] {data}")
+    logger = _SimpleLogger()
+
 
 
 class ReActAgent:
@@ -16,10 +28,11 @@ class ReActAgent:
 
     def get_system_prompt(self) -> str:
         tool_descriptions = "\n".join(
-            [f"- {t['name']}: {t['description']}" for t in self.tools]
+            [f"- {t['name']}: {t['description']}\n  Example: {t['name']}({t.get('args_example','')})"
+             for t in self.tools]
         )
-        return f"""
-You are an intelligent assistant. You have access to the following tools:
+        return f"""You are a helpful hotel booking assistant. You have access to the following tools:
+
 {tool_descriptions}
 
 Use EXACTLY this format:
@@ -41,6 +54,7 @@ Rules:
         # Seed the conversation with the user message
         self.history.append({"role": "user", "content": user_input})
         steps = 0
+        full_trace = []
 
         while steps < self.max_steps:
             # 1. Ask the LLM for the next Thought/Action (or Final Answer)
